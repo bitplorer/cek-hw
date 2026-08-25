@@ -1,0 +1,113 @@
+{
+  "law_generation": "cek-law-1",
+  "profile": "hw-v1",
+  "unknown_op_policy": "fail_batch",
+  "receipts": "required",
+  "note": "L5 domain pack. Not Baseline. Not a kernel. Pair identity is (ns, name); name is a single token.",
+  "packs": [
+    {
+      "pack": "hw.gpio",
+      "ops": [
+        {
+          "name": "set",
+          "reverse": "snapshot",
+          "lowering": "kv.set",
+          "required": ["device", "pin", "level"],
+          "optional": ["prior"],
+          "doc": "Digital write. prior on the Op is for landed-first reverse (same role as ui.dom.morph snapshot)."
+        }
+      ]
+    },
+    {
+      "pack": "hw.relay",
+      "ops": [
+        {
+          "name": "set",
+          "reverse": "snapshot",
+          "lowering": "kv.set",
+          "required": ["device", "id", "level"],
+          "optional": ["prior"]
+        },
+        {
+          "name": "pulse",
+          "reverse": "non_reversible",
+          "lowering": "skip",
+          "required": ["device", "id", "ms"],
+          "doc": "Pulse already happened; reverse is honest non_reversible."
+        }
+      ]
+    },
+    {
+      "pack": "hw.motor",
+      "ops": [
+        {
+          "name": "start",
+          "reverse": "compensation",
+          "lowering": "skip",
+          "required": ["device", "id"],
+          "optional": ["rpm"],
+          "doc": "Inverse is hw.motor.stop (compensation, not a true inverse of physics)."
+        },
+        {
+          "name": "stop",
+          "reverse": "non_reversible",
+          "lowering": "skip",
+          "required": ["device", "id"]
+        }
+      ]
+    },
+    {
+      "pack": "hw.safe",
+      "ops": [
+        {
+          "name": "state",
+          "reverse": "non_reversible",
+          "lowering": "skip",
+          "required": ["device"],
+          "doc": "Drive every registered channel to its declared safe level. Watchdog may apply this locally without a Cap (interlock, not authority)."
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "action": "hw.gpio.write",
+      "ns": "hw.gpio",
+      "name": "set",
+      "required": ["device", "pin", "level"],
+      "optional": ["prior"]
+    },
+    {
+      "action": "hw.relay.write",
+      "ns": "hw.relay",
+      "name": "set",
+      "required": ["device", "id", "level"],
+      "optional": ["prior"]
+    },
+    {
+      "action": "hw.relay.pulse",
+      "ns": "hw.relay",
+      "name": "pulse",
+      "required": ["device", "id", "ms"]
+    },
+    {
+      "action": "hw.motor.start",
+      "ns": "hw.motor",
+      "name": "start",
+      "required": ["device", "id"],
+      "optional": ["rpm"]
+    },
+    {
+      "action": "hw.motor.stop",
+      "ns": "hw.motor",
+      "name": "stop",
+      "required": ["device", "id"]
+    },
+    {
+      "action": "hw.safe.apply",
+      "ns": "hw.safe",
+      "name": "state",
+      "required": ["device"]
+    }
+  ]
+}

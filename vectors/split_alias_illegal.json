@@ -1,0 +1,19 @@
+{
+  "id": "split-alias-illegal",
+  "family": "hw_domain",
+  "description": "(hw, gpio.set) is not (hw.gpio, set)",
+  "peer_profile": "hw-v1",
+  "peer_apply": true,
+  "peer_result": {
+    "kind": "ok",
+    "ops": [
+      {
+        "ns": "hw",
+        "name": "gpio.set",
+        "payload": { "device": "press-01", "pin": 13, "level": 1 }
+      }
+    ]
+  },
+  "expect_landed": 0,
+  "expect_failed": 1
+}

@@ -1,0 +1,20 @@
+{
+  "id": "unknown-pin-fails",
+  "family": "hw_domain",
+  "description": "Registered device, unknown pin → failed, not invented",
+  "peer_profile": "hw-v1",
+  "peer_apply": true,
+  "peer_result": {
+    "kind": "ok",
+    "ops": [
+      {
+        "ns": "hw.gpio",
+        "name": "set",
+        "payload": { "device": "press-01", "pin": 99, "level": 1 }
+      }
+    ]
+  },
+  "expect_kind": "ok",
+  "expect_landed": 0,
+  "expect_failed": 1
+}

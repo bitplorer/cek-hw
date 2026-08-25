@@ -1,0 +1,9 @@
+[package]
+name = "cek-ops-hw"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Peer-outer hw.* driver. Not a kernel. Vendor into cek-runtime when ready."
+
+[dependencies]
+serde_json = "1"

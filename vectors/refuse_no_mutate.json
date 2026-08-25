@@ -1,0 +1,21 @@
+{
+  "id": "refuse-no-mutate",
+  "family": "hw_domain",
+  "description": "authority_refusal never reaches the driver",
+  "peer_profile": "hw-v1",
+  "peer_apply": true,
+  "peer_result": {
+    "kind": "authority_refusal",
+    "ops": [
+      {
+        "ns": "hw.gpio",
+        "name": "set",
+        "payload": { "device": "press-01", "pin": 13, "level": 1 }
+      }
+    ],
+    "error": "cap required"
+  },
+  "expect_kind": "authority_refusal",
+  "expect_landed": 0,
+  "expect_gpio": {}
+}

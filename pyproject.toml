@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cek-hw"
+version = "0.1.0"
+description = "CEK hardware pack: hw.* Ops, Peer driver, serial carrier, MCU port. Not a Host kernel."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "bitplorer" }]
+keywords = ["cek", "hardware", "gpio", "peer", "ux-channel"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Topic :: System :: Hardware",
+]
+dependencies = []
+
+[project.optional-dependencies]
+serial = ["pyserial>=3.5"]
+cek = ["cek-host>=0.1.3"]
+dev = ["pytest>=7"]
+
+[project.urls]
+Homepage = "https://github.com/bitplorer/cek-hw"
+Law = "https://github.com/bitplorer/cek-framework"
+Runtime = "https://github.com/bitplorer/cek-runtime"
+Host = "https://github.com/bitplorer/cek-python"
+Wire = "https://github.com/bitplorer/ux-channel"
+
+[project.scripts]
+cek-hw = "cek_hw.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+cek_hw = ["py.typed", "data/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

@@ -1,0 +1,16 @@
+{
+  "id": "dispatch-error-no-mutate",
+  "family": "hw_domain",
+  "description": "dispatch_error is not an apply",
+  "peer_profile": "hw-v1",
+  "peer_apply": true,
+  "peer_result": {
+    "kind": "dispatch_error",
+    "ops": [],
+    "error": "unknown action"
+  },
+  "expect_kind": "dispatch_error",
+  "expect_landed": 0,
+  "expect_failed": 0,
+  "expect_gpio": {}
+}

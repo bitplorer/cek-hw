@@ -1,0 +1,21 @@
+{
+  "id": "gpio-set-lands",
+  "family": "hw_domain",
+  "description": "Peer-only: hw.gpio.set lands on hw-v1 Peer",
+  "peer_profile": "hw-v1",
+  "peer_apply": true,
+  "peer_result": {
+    "kind": "ok",
+    "ops": [
+      {
+        "ns": "hw.gpio",
+        "name": "set",
+        "payload": { "device": "press-01", "pin": 13, "level": 1, "prior": 0 }
+      }
+    ]
+  },
+  "expect_kind": "ok",
+  "expect_landed": 1,
+  "expect_failed": 0,
+  "expect_gpio": { "press-01:13": 1 }
+}

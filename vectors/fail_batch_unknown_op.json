@@ -1,0 +1,24 @@
+{
+  "id": "fail-batch-unknown-op",
+  "family": "hw_domain",
+  "description": "Unknown Op aborts the rest (fail_batch). Hardware must not skip.",
+  "peer_profile": "hw-v1",
+  "peer_apply": true,
+  "peer_result": {
+    "kind": "ok",
+    "ops": [
+      {
+        "ns": "ui.dom",
+        "name": "morph",
+        "payload": { "target": "hdr", "patch": {} }
+      },
+      {
+        "ns": "hw.gpio",
+        "name": "set",
+        "payload": { "device": "press-01", "pin": 13, "level": 1 }
+      }
+    ]
+  },
+  "expect_landed": 0,
+  "expect_failed": 2
+}
