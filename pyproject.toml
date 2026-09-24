@@ -20,7 +20,7 @@ dependencies = []
 
 [project.optional-dependencies]
 serial = ["pyserial>=3.5"]
-cek = ["cek-host>=0.1.3"]
+cek = ["cek-host>=0.2.0"]
 dev = ["pytest>=7"]
 
 [project.urls]

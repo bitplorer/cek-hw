@@ -4,8 +4,8 @@ from __future__ import annotations
 
 try:
     from cek_host import Host
-    from cek_host.legal import BASELINE_PAIRS, normalize_stamp
-except ImportError:
+    from cek_host.catalog import BASELINE_PAIRS, normalize_stamp
+except ModuleNotFoundError:
     print("cek-host not installed — driver-only bench is demos/bench.py")
     raise SystemExit(0)
 
@@ -13,10 +13,10 @@ from cek_hw import HW_STAMP, HwPeer, Registry, demo_press, project_action
 
 
 def main() -> None:
-    host = Host.demo()
+    host = Host.dev()
     # dicts and tuples are both legal stamp items; HW_STAMP is the extension.
     host.stamp = normalize_stamp([*BASELINE_PAIRS, *HW_STAMP])
-    args = {"device": "press-01", "pin": 13, "level": 1, "prior": 0}
+    args = {"device": "press-01", "pin": 13, "level": 1, "prior": 0, "subject": "press-01"}
     cap = host.mint("hw.gpio.write", args=args, seal_args=True, once=True, subject="press-01")
     result = host.submit(
         action="hw.gpio.write",
