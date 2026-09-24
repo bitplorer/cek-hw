@@ -1,6 +1,6 @@
 """hw-v1 Domain catalog — sole source of hw pair identity.
 
-Mirrors cek-contract domain.rs + cek_host.legal, but ONLY the hw packs.
+Mirrors cek-contract domain.rs + cek_host.catalog, but ONLY the hw packs.
 Baseline / ui.dom live upstream. Do not copy them here.
 
 Wire identity is the pair (ns, name). Concatenation is never identity.

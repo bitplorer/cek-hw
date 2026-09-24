@@ -55,7 +55,7 @@ These show up in every library. **One owner each.**
 | BoundAsk, refuse | Host kernel | "USB is trusted so skip Caps" |
 | Apply loop (refuse / order / fail_batch / receipt) | Peer kernel | grow a second kernel here; thin **port** only |
 | World + `apply_op` | driver crate per world | mix kv and gpio in one store |
-| Pair identity `(ns, name)` | contract + `legal.py` | concatenate as identity |
+| Pair identity `(ns, name)` | contract + `cek_host.catalog` | concatenate as identity |
 | Carrier types `apply/applied/stamp` | surface / ux-channel | new verbs per transport |
 | JSON floor | ux-channel SPEC | binary IR on UART |
 | Catalog file → constructors → apply → vector | every Domain pack | a fourth FQ list in firmware comments |

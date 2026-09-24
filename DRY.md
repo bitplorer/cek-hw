@@ -15,7 +15,7 @@ Research notes: [docs/RESEARCH.md](docs/RESEARCH.md).
 | kv / log / ui.dom drivers | `cek-ops-baseline`, `cek-ops-ui` | New world `HwStore` only |
 | Intent / Result / Op JSON shapes | `cek-contract` + ux-channel SPEC | Reuse the dicts; no new IR |
 | Carrier protocol `apply/stamp/chrome/done` | `cek_surface.carrier` | `serial.py` is **framing** (UART NDJSON), same messages |
-| Pair identity `(ns, name)` | `cek_host.legal` / `domain.rs` | hw packs only; `normalize_stamp` already accepts extension pairs |
+| Pair identity `(ns, name)` | `cek_host.catalog` / `domain.rs` | hw packs only; `normalize_stamp` already accepts extension pairs |
 | Structure gate (`family.scope`, token name) | `cek_host.structure` | `hw.gpio` already passes `validate_pair` |
 | JSON floor | ux-channel IR 0.1 | MCU speaks JSON floor; no custom binary IR |
 
@@ -37,13 +37,13 @@ Research notes: [docs/RESEARCH.md](docs/RESEARCH.md).
 
 ```python
 from cek_host import Host
-from cek_host.legal import normalize_stamp, BASELINE_PAIRS
+from cek_host.catalog import normalize_stamp, BASELINE_PAIRS
 from cek_hw import HW_STAMP, project_action, HwPeer, demo_press, Registry
 
 host = Host(secret=secret)
 host.stamp = normalize_stamp([*BASELINE_PAIRS, *HW_STAMP])
 
-args = {"device": "press-01", "pin": 13, "level": 1, "prior": 0}
+args = {"device": "press-01", "pin": 13, "level": 1, "prior": 0, "subject": "press-01"}
 cap = host.mint("hw.gpio.write", args=args, seal_args=True, once=True, subject="press-01")
 ops = project_action("hw.gpio.write", args)          # this repo
 result = host.submit(action="hw.gpio.write", args=args, cap=cap, project_ops=ops)
