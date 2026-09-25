@@ -4,6 +4,7 @@ Read in this order.
 
 | Doc | Why |
 |-----|-----|
+| [PLACE.md](PLACE.md) | This layer among the others, and the doors it has |
 | [START.md](../START.md) | one-page on-ramp |
 | [DRY.md](../DRY.md) | what this repo must not copy |
 | [RESEARCH.md](RESEARCH.md) | upstream inventory, gaps, reverse physics |
