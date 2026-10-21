@@ -34,7 +34,9 @@ class Watchdog:
         self.last_pet = self.now()
 
     def pet(self) -> None:
+        """A landed apply re-arms every device, as the firmware does."""
         self.last_pet = self.now()
+        self.tripped.clear()
 
     def tick(self) -> list[dict[str, Any]]:
         """Apply local safe_state for any device past its deadline. Returns events."""
