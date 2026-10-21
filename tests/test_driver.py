@@ -134,6 +134,38 @@ def test_watchdog_trips_safe():
     assert store.gpio_get("press-01", 13) == 0  # safe
 
 
+def test_watchdog_rearms_like_firmware():
+    """Mirrors cek_hw_peer.ino: a landed apply re-arms; refusals and failures do not."""
+    reg = Registry()
+    press = demo_press()
+    press.watchdog_ms = 10
+    reg.add(press)
+    clock = {"t": 0.0}
+    wd = Watchdog(store=HwStore(), registry=reg, now=lambda: clock["t"])
+    peer = HwPeer(store=wd.store, registry=reg, watchdog=wd)
+    coil_on = {"kind": "ok", "ops": [gpio_set("press-01", 13, 1)]}
+
+    peer.apply(coil_on)
+    assert wd.tick() == []  # within deadline
+
+    clock["t"] = 1.0  # Host lost
+    assert len(wd.tick()) == 1
+    assert peer.store.gpio_get("press-01", 13) == 0
+    assert wd.tick() == []  # one event per loss
+
+    peer.apply({"kind": "authority_refusal", "ops": [gpio_set("press-01", 13, 1)]})
+    peer.apply({"kind": "ok", "ops": [gpio_set("press-01", 99, 1)]})
+    clock["t"] = 1.5
+    assert wd.tick() == []  # nothing landed, so not re-armed
+
+    peer.apply(coil_on)  # Host back
+    assert peer.store.gpio_get("press-01", 13) == 1
+
+    clock["t"] = 2.0  # Host lost again
+    assert len(wd.tick()) == 1
+    assert peer.store.gpio_get("press-01", 13) == 0
+
+
 def test_vectors_pass():
     from cek_hw.cli import run_vectors
 
